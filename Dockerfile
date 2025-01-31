@@ -6,7 +6,7 @@ WORKDIR /workdir
 COPY . .
 
 RUN ansible-galaxy collection build --force inhouse
-RUN ansible-galaxy collection install --force cervoevo-inhouse-1.0.0.tar.gz
+RUN ansible-galaxy collection install --force alainchiasson-inhouse-1.0.0.tar.gz
 
 
 

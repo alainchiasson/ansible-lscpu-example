@@ -21,7 +21,7 @@ author:
 
 EXAMPLES = r'''
 - name: Return lscpu_facts
-  cervoevo.inhouse.lscpu_facts:
+  alainchiasson.inhouse.lscpu_facts:
 '''
 
 RETURN = r'''
@@ -47,7 +47,7 @@ ansible_facts:
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.cervoevo.inhouse.plugins.module_utils.helpers import get_lscpu
+from ansible_collections.alainchiasson.inhouse.plugins.module_utils.helpers import get_lscpu
 
 def run_module():
     # define available arguments/parameters a user can pass to the module

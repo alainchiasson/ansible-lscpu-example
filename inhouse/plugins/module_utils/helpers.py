@@ -12,7 +12,6 @@ def get_lscpu():
     # I'm converting the array to K,V pairs
     output['lscpu_data'] = {}
 
-
     for item in output['lscpu']:
       # Converts Array of Field:thing, data:value 
       # To Dictionary of Thing:Value

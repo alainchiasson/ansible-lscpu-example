@@ -3,7 +3,7 @@
   gather_facts: true
   tasks:
   - name: get lscpu facts
-    cervoevo.inhouse.lscpu_facts:
+    alainchiasson.inhouse.lscpu_facts:
   - name: Dump
     debug:
       msg: "{{ hostvars[inventory_hostname].lscpu }}"

@@ -99,7 +99,7 @@ I have also added a dockerfile that will package the above steps to build a dock
 
     docker build -t ansible-lscpu-example .
 
-This will build a fedora based image with python and ansible. It will also copy the code, build a tar, and install the lscpu module from the cervoevo.inhouse collection. The image is self contained, to test this, we launch the image interactively : 
+This will build a fedora based image with python and ansible. It will also copy the code, build a tar, and install the lscpu module from the alainchiasson.inhouse collection. The image is self contained, to test this, we launch the image interactively : 
 
     docker run -it --rm ansible-lscpu-example
 
@@ -117,7 +117,7 @@ On my system, the debug task:
 
 ```
   - name: get lscpu facts
-    cervoevo.inhouse.lscpu_facts:
+    alainchiasson.inhouse.lscpu_facts:
   - name: Dump
     debug:
       msg: "{{ hostvars[inventory_hostname].lscpu }}"
