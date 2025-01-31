@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Copyright: (c) 2020, Your Name <YourName@example.org>
+# Copyright: (c) 2020, Alain Chiasson <alain@cervoevo.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
@@ -47,7 +47,7 @@ ansible_facts:
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.alainchiasson.inhouse.plugins.module_utils.helpers import get_lscpu
+from ansible_collections.cervoevo.inhouse.plugins.module_utils.helpers import get_lscpu
 
 def run_module():
     # define available arguments/parameters a user can pass to the module

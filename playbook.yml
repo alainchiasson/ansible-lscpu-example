@@ -3,7 +3,13 @@
   gather_facts: true
   tasks:
   - name: get lscpu facts
-    alainchiasson.inhouse.lscpu_facts:
+    cervoevo.inhouse.lscpu_facts:
   - name: Dump
     debug:
       msg: "{{ hostvars[inventory_hostname].lscpu }}"
+  - name: Dump Vendor ID
+    debug:
+      msg: "{{ hostvars[inventory_hostname].lscpu['Vendor ID'] }}"
+  - name: Dump Keys
+    debug:
+      msg: "{{ hostvars[inventory_hostname].lscpu.keys() }}"

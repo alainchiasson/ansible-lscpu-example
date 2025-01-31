@@ -70,7 +70,7 @@ And validate again.
 
 Thats it ... well there is more ... the goal was to get around unitelligible jinja.
 
-# Getting it running form the repo via docker 
+# Getting it running from the repo via docker 
 
 I like to spin up docker environments when doing this. So I'm adding these notes. from the repo root :
 
@@ -92,4 +92,84 @@ And from there you may run the two validation tests we have :
 
     ansible localhost -m alainchiasson.inhouse.lscpu
     ansible-playbook playbook.yml
+
+# Building a runnable docker image.
+
+I have also added a dockerfile that will package the above steps to build a dockerimage that runs to demonstrate the playbook.
+
+    docker build -t ansible-lscpu-example .
+
+This will build a fedora based image with python and ansible. It will also copy the code, build a tar, and install the lscpu module from the cervoevo.inhouse collection. The image is self contained, to test this, we launch the image interactively : 
+
+    docker run -it --rm ansible-lscpu-example
+
+It drops you in a shell. You can then run the playbook:
+
+    ansible-playbook -i localhost, -c local playbook.yml
+
+And the expected output is the results of the lscpu as a dict. A specific key ( Vendor ID ), followed by a list of keys - using the standard jinja filter.
+
+Or you can do it all one shot:
+
+    docker run --rm ansible-lscpu-example ansible-playbook -i localhost, -c local  playbook.yml
+
+On my system, the debug task:
+
+```
+  - name: get lscpu facts
+    cervoevo.inhouse.lscpu_facts:
+  - name: Dump
+    debug:
+      msg: "{{ hostvars[inventory_hostname].lscpu }}"
+  - name: Vendor ID
+    debug:
+      msg: "{{ hostvars[inventory_hostname].lscpu['Vendor ID'] }}"
+
+```
+
+shows :
+
+```
+...
+
+TASK [Dump] ********************************************************************
+ok: [localhost] => {
+    "msg": {
+        "Architecture": "aarch64",
+        "BogoMIPS": "48.00",
+        "Byte Order": "Little Endian",
+        "CPU op-mode(s)": "64-bit",
+...
+    }
+}
+
+TASK [Dump Vendor ID] **********************************************************
+ok: [localhost] => {
+    "msg": "Apple"
+}
+
+TASK [Dump Keys] ***************************************************************
+ok: [localhost] => {
+    "msg": [
+        "Architecture",
+        "CPU op-mode(s)",
+        "Byte Order",
+        "CPU(s)",
+        "On-line CPU(s) list",
+        "Vendor ID",
+        "Model name",
+        "Model",
+        "Thread(s) per core",
+        "Core(s) per cluster",
+        "Socket(s)",
+        "Cluster(s)",
+...
+        "Vulnerability Spectre v2",
+        "Vulnerability Srbds",
+        "Vulnerability Tsx async abort"
+    ]
+}
+
+```
+
 
